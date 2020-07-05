@@ -31,3 +31,7 @@ The current scraper doesn't scrape the time watched, so unfortunately the estima
 #### Code is not good
 
 This was me not caring about coding standards or anything, just trying to make it look good lol, so if you are looking to extend it be wary of that.
+
+#### Generated Data.json is absolutely massive
+
+The data.json for me is about 100mb which is absolutely huge. Might write something to reduce the data size, but just wanted to get it out the door
