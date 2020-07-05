@@ -2,6 +2,8 @@
 
 This is a little something I whipped together to visualize the history of my youtube.
 
+![](example.gif)
+
 ### Usage
 
 1. Use https://github.com/zvodd/Youtube-Watch-History-Scraper to scrape your watch history
