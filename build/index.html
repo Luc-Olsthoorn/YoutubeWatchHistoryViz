@@ -1,0 +1,182 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+  <style>
+    .line {
+      fill: none;
+      stroke: white;
+      stroke-width: 3;
+    }
+
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }
+  </style>
+  <div id="loading" style="position:absolute;bottom:calc(50% - 32px);left:calc(50% - 100px); width:200px; text-align:center;">
+    <h6 style="padding-bottom:10px;"><i>Your youtube history analytics is being made</i></h6>
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="graphs" style="visibility:hidden; ">
+    <h1 style="text-align:center; color:#ee6e73; padding:50px;">Your Youtube History Analysis:</h1>
+    <div class="row">
+      <div class="col s12 m9 l10">
+        <div class="row section scrollspy" id="intro">
+          <div class="col s12 m6 offset-m3">
+            <p style="color:#9e9e9e; text-align:center;">Lets turn back the time on your past 5 years of watch history, and see some interesting, or depressing things!</p>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row section scrollspy" id="timeWatched">
+          <div class="col s12 m6">
+            <div class="card-panel teal">
+              <span class="white-text">
+                You have watched:
+                <h2 id="totalTime" style="margin:0px"></h2>
+                of youtube
+              </span>
+            </div>
+
+          </div>
+          <div class="col s12 m6">
+          <div class="card-panel blue">
+            <span class="white-text">
+              You have watched:
+              <h2 id="numVideos"></h2>
+              videos
+            </span>
+          </div>
+          </div>
+          <div class="col s12 m12">
+            <div class="card-panel orange">
+              <span class="white-text">
+                Watch over time:
+                <div id="watchOverTime" style="width:100%; overflow-y:scroll;"></div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row section scrollspy" id="favoriteChannels">
+          <div class="col s12 m12">
+            <div class="card-panel red">
+              <span class="white-text">
+                Your most watched channels:
+              </span>
+              <ul class="red" id="channelsList" style="height:400px; overflow-y:scroll">
+
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row section scrollspy" id="channelsOverTimeContainer" >
+          <div class="col s12 m12">
+            <div class="card-panel">
+              <div style="display:flex; justify-content:space-between">
+                <h6 style="color:#9e9e9e">Channel's Watchtime Over Time(in minutes):</h6>
+                <button class="btn waves-effect waves-light" style="float:right;"type="submit" onclick="generateChannelOverTimeTimeWatchedChart()" name="action">Restart
+                  <i class="material-icons right">replay</i>
+                </button>
+              </div>
+              <span class="white-text">
+
+                <div id="channelsOverTime" style="width:100%;"></div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="row section scrollspy" id="channelsOverTimeVideoContainer" >
+          <div class="col s12 m12">
+            <div class="card-panel">
+              <div style="display:flex; justify-content:space-between">
+                <h6 style="color:#9e9e9e">Number of videos watched per channel</h6>
+                <button class="btn waves-effect waves-light" style="float:right;"type="submit" onclick="generateChannelOverTimeVideosChart()" name="action">Restart
+                  <i class="material-icons right">replay</i>
+                </button>
+              </div>
+              <span class="white-text">
+
+                <div id="channelsOverTimeVideos" style="width:100%;"></div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col hide-on-small-only m3 l2" style="position:fixed; right:10%;">
+        <ul class="section table-of-contents">
+          <li><a href="#intro">Introduction</a></li>
+          <li><a href="#timeWatched">Time Watched</a></li>
+          <li><a href="#favoriteChannels">Favorite Channels</a></li>
+          <li><a href="#channelsOverTimeContainer">Channels Time Watch Over Time</a></li>
+          <li><a href="#channelsOverTimeVideoContainer">Channels Video Count Over Time</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script type="text/javascript"  src="data.json"></script>
+  <script src="./graphs.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.scrollspy');
+      var instances = M.ScrollSpy.init(elems, {});
+    });
+  </script>
+</body>
